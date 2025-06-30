@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавление сериала</title>
+    <style>
+        :root {
+            --primary-color: #9b59b6;
+            --secondary-color: #8e44ad;
+            --background-color: #f5eef8;
+            --text-color: #2c3e50;
+            --border-color: #d7bde2;
+            --input-bg: #ffffff;
+            --success-color: #27ae60;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .form-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 1.8rem;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            background-color: var(--input-bg);
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(155, 89, 182, 0.2);
+        }
+
+        .btn-submit {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 20px;
+        }
+
+        .btn-submit:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 15px;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .back-link:hover {
+            color: var(--secondary-color);
+            text-decoration: underline;
+        }
+
+        /* Анимация для формы */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .form-container {
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        /* Адаптивность */
+        @media screen and (max-width: 480px) {
+            .form-container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="form-container">
+    <h1>Добавление нового сериала</h1>
+    <form action="#" th:action="@{/series/series-create}" th:object="${series}" method="post">
+        <div class="form-group">
+            <label for="nameSeries">Название:</label>
+            <input type="text" th:field="*{nameSeries}" id="nameSeries" placeholder="Введите название сериала" required>
+        </div>
+
+
+
+        <div class="form-group">
+            <label for="genre">Жанр:</label>
+            <input type="text" th:field="*{genre}" id="genre" placeholder="Введите жанр" required>
+        </div>
+
+        <div class="form-group">
+            <label for="releaseYear">Год выпуска:</label>
+            <input type="number" th:field="*{releaseYear}" id="releaseYear" placeholder="Введите год выпуска" min="1900" max="2025" required>
+        </div>
+
+        <div class="form-group">
+            <label for="seasons">Количество сезонов:</label>
+            <input type="number" th:field="*{seasons}" id="seasons" placeholder="Введите количество сезонов" min="1" required>
+        </div>
+
+        <div class="form-group">
+            <label for="country">Страна:</label>
+            <input type="text" th:field="*{country}" id="country" placeholder="Введите страну производства" required>
+        </div>
+
+        <div class="form-group">
+            <label for="grade">Оценка (1-10):</label>
+            <input type="number" th:field="*{grade}" id="grade" placeholder="Введите оценку от 1 до 10" min="1" max="10" step="0.1" required>
+        </div>
+
+        <button type="submit" class="btn-submit">Добавить сериал</button>
+        <a href="/series" class="back-link">← Вернуться к списку сериалов</a>
+    </form>
+</div>
+</body>
+</html>

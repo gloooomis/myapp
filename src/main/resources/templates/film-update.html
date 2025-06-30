@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Изменение фильма</title>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2980b9;
+            --background-color: #f8f9fa;
+            --text-color: #333;
+            --border-color: #ddd;
+            --error-color: #e74c3c;
+            --success-color: #2ecc71;
+            --input-bg: #ffffff;
+            --input-border: #ced4da;
+            --readonly-bg: #f5f5f5;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .form-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 1.8rem;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--input-border);
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            background-color: var(--input-bg);
+        }
+
+        input[readonly] {
+            background-color: var(--readonly-bg);
+            cursor: not-allowed;
+            border-color: #eee;
+        }
+
+        input[type="text"]:focus:not([readonly]),
+        input[type="number"]:focus:not([readonly]) {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+
+        .btn-submit {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+        }
+
+        .btn-submit:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 15px;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .back-link:hover {
+            color: var(--secondary-color);
+            text-decoration: underline;
+        }
+
+        /* Адаптивность */
+        @media screen and (max-width: 480px) {
+            .form-container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="form-container">
+    <h1>Редактирование фильма</h1>
+    <form action="#" th:action="@{/films/film-update}" th:object="${film}" method="post">
+        <div class="form-group">
+            <label for="nameFilm">Название:</label>
+            <input readonly type="text" th:field="*{nameFilm}" id="nameFilm" placeholder="Название фильма">
+        </div>
+
+        <div class="form-group">
+            <label for="user">Пользователь:</label>
+            <input readonly type="text" th:field="*{user.loginUser}" id="user" placeholder="Имя пользователя" required>
+        </div>
+
+        <div class="form-group">
+            <label for="genre">Жанр:</label>
+            <input type="text" th:field="*{genre}" id="genre" placeholder="Жанр фильма" required>
+        </div>
+
+        <div class="form-group">
+            <label for="releaseYear">Год выпуска:</label>
+            <input type="number" th:field="*{releaseYear}" id="releaseYear" placeholder="Год выпуска" min="1900" max="2025" required>
+        </div>
+
+        <div class="form-group">
+            <label for="duration">Длительность (мин):</label>
+            <input type="number" th:field="*{duration}" id="duration" placeholder="Длительность в минутах" min="1" required>
+        </div>
+
+        <div class="form-group">
+            <label for="country">Страна:</label>
+            <input type="text" th:field="*{country}" id="country" placeholder="Страна производства" required>
+        </div>
+
+        <div class="form-group">
+            <label for="grade">Оценка (1-10):</label>
+            <input type="number" th:field="*{grade}" id="grade" placeholder="Оценка от 1 до 10" min="1" max="10" step="0.1" required>
+        </div>
+
+        <button type="submit" class="btn-submit">Сохранить изменения</button>
+        <a href="/films" class="back-link">← Вернуться к списку фильмов</a>
+    </form>
+</div>
+</body>
+</html>

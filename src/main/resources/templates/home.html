@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Главная</title>
+    <meta charset="UTF-8">
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2980b9;
+            --background-color: #f8f9fa;
+            --text-color: #333;
+            --nav-bg: #2c3e50;
+            --nav-hover: #34495e;
+            --success-color: #2ecc71;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 0;
+            margin: 0;
+            min-height: 100vh;
+        }
+
+        .navbar {
+            background-color: var(--nav-bg);
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 15px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            background-color: var(--nav-hover);
+            transform: translateY(-2px);
+        }
+
+        .content {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .welcome-message {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+
+        .features {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .feature-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 25px;
+            width: 300px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .feature-title {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: var(--nav-bg);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Адаптивность */
+        @media screen and (max-width: 768px) {
+            .nav-links {
+                gap: 10px;
+            }
+
+            .features {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div th:if="${session.user}">
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-links">
+                <a href="/home">Главная</a>
+                <a href="/films">Фильмы</a>
+                <a href="/series">Сериалы</a>
+                <a href="/logout">Выход</a>
+            </div>
+        </div>
+    </nav>
+</div>
+
+<div class="content">
+    <h1>Добро пожаловать в наше кино-приложение!</h1>
+
+    <div class="welcome-message">
+        <p>Спасибо за использование нашего приложения! <br>Здесь вы можете управлять своей коллекцией фильмов и сериалов,
+            <br>оценивать просмотренное и делиться своими впечатлениями.</p>
+    </div>
+
+    <div class="features">
+        <div class="feature-card">
+            <div class="feature-icon">🎬</div>
+            <h3 class="feature-title">Фильмы</h3>
+            <p>Добавляйте и оценивайте <br>ваши любимые фильмы</p>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon">📺</div>
+            <h3 class="feature-title">Сериалы</h3>
+            <p>Ведите список просмотренных сериалов и дорам </p>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon">⭐</div>
+            <h3 class="feature-title">Оценки</h3>
+            <p>Ставьте оценки и сохраняйте свои впечатления</p>
+        </div>
+    </div>
+</div>
+</body>
+</html>
